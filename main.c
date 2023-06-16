@@ -12,18 +12,6 @@ typedef struct
     float saldo;
 } Conta;
 
-void removeEspacos(char *str)
-{
-    int length = strlen(str);
-    for (int i = 0; i < length; i++)
-    {
-        if (str[i] == ' ')
-        {
-            str[i] = '-';
-        }
-    }
-}
-
 void inserir(Conta *contas, int *totalContas)
 {
     char aux[51];
@@ -39,6 +27,7 @@ void inserir(Conta *contas, int *totalContas)
     Conta novaConta;
 
     printf("Numero da conta: %d \n", novaConta.numero = rand());
+    fflush(stdin);
     // printf("Numero da conta: \n");
     // scanf("%d", &novaConta.numero);
 
@@ -54,11 +43,7 @@ void inserir(Conta *contas, int *totalContas)
 
     // Um erro nesta parte, ao entrar com um nome e sobrenome, ele entra em loop infinito. EX: "Juan" = Da certo; "Juan Lucas" = Loop infinito
     printf("Nome do cliente (Apenas primeiro nome): ");
-    // gets(novaConta.cliente);
-    // fgets(novaConta.cliente, sizeof(novaConta.cliente), stdin);
-    scanf("%99s", novaConta.cliente);
-    // scanf(" %[^ \n]", novaConta.cliente);
-    removeEspacos(novaConta.cliente);
+    fgets(novaConta.cliente, sizeof(novaConta.cliente), stdin);
 
     printf("Conta especial (1 - Sim, 0 - Nao): ");
     scanf("%d", &novaConta.especial);
@@ -75,19 +60,27 @@ void inserir(Conta *contas, int *totalContas)
 void alterar(Conta *contas, int totalContas)
 {
 
-    int numeroConta;
+    int numeroConta, decisao;
 
-    printf("Digite o número da conta a ser alterada: ");
-    scanf("%d", &numeroConta);
-
-    for (int i = 0; i < totalContas; i++)
+    if (totalContas == 0)
     {
-        if (contas[i].numero == numeroConta)
+        printf("Nenhuma conta foi adicionada ainda!");
+        return;
+    }
+    else
+    {
+        printf("Digite o numero da conta a ser alterada: ");
+        scanf("%d", &numeroConta);
+
+        for (int i = 0; i < totalContas; i++)
         {
-            printf("Novo nome do cliente: ");
-            scanf(" %[^ \n]", contas[i].cliente);
-            printf("Dados da conta alterados com sucesso!\n");
-            return;
+            if (contas[i].numero == numeroConta)
+            {
+                printf("Novo nome do cliente: ");
+                scanf(" %[^ \n]", contas[i].cliente);
+                printf("Dados da conta alterados com sucesso!\n");
+                return;
+            }
         }
     }
 

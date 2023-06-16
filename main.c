@@ -12,8 +12,21 @@ typedef struct
     float saldo;
 } Conta;
 
+void removeEspacos(char *str)
+{
+    int length = strlen(str);
+    for (int i = 0; i < length; i++)
+    {
+        if (str[i] == ' ')
+        {
+            str[i] = '-';
+        }
+    }
+}
+
 void inserir(Conta *contas, int *totalContas)
 {
+    char aux[51];
 
     srand(time(NULL));
 
@@ -26,6 +39,7 @@ void inserir(Conta *contas, int *totalContas)
     Conta novaConta;
 
     printf("Numero da conta: %d \n", novaConta.numero = rand());
+    // printf("Numero da conta: \n");
     // scanf("%d", &novaConta.numero);
 
     // Verifica se o numero da conta já existe. Seria uma validação de segurança, pois usando a função rand com base no relogio, o número nunca se repetira.
@@ -44,6 +58,7 @@ void inserir(Conta *contas, int *totalContas)
     // fgets(novaConta.cliente, sizeof(novaConta.cliente), stdin);
     scanf("%99s", novaConta.cliente);
     // scanf(" %[^ \n]", novaConta.cliente);
+    removeEspacos(novaConta.cliente);
 
     printf("Conta especial (1 - Sim, 0 - Nao): ");
     scanf("%d", &novaConta.especial);
@@ -76,8 +91,6 @@ void alterar(Conta *contas, int totalContas)
         }
     }
 
-
-
     printf("Conta nao encontrada!\n");
 }
 
@@ -86,7 +99,6 @@ void procurar(Conta *contas, int totalContas)
     int numeroConta;
     printf("Digite o numero da conta a ser procurada: ");
     scanf("%d", &numeroConta);
-
 
     for (int i = 0; i < totalContas; i++)
     {
@@ -100,21 +112,17 @@ void procurar(Conta *contas, int totalContas)
         }
     }
 
-
     printf("Conta nao encontrada! \n");
 }
 
 void listar(Conta *contas, int totalContas)
 {
 
-
     if (totalContas == 0)
     {
         printf("Nenhuma conta cadastrada! \n");
         return;
     }
-
-
 
     printf("Total de contas cadastradas: %d \n", totalContas);
 
@@ -126,8 +134,6 @@ void listar(Conta *contas, int totalContas)
         printf("Saldo atual: %.2f \n", contas[i].saldo);
         printf("-------------------------\n");
     }
-
-
 }
 
 void depositar(Conta *contas, int totalContas)
@@ -138,7 +144,6 @@ void depositar(Conta *contas, int totalContas)
 
     printf("Digite o numero da conta para deposito: ");
     scanf("%d", &numeroConta);
-
 
     for (int i = 0; i < totalContas; i++)
     {
@@ -161,8 +166,6 @@ void depositar(Conta *contas, int totalContas)
         }
     }
 
-
-
     printf("Conta nao encontrada!\n");
 }
 
@@ -171,7 +174,6 @@ void sacar(Conta *contas, int totalContas)
 
     int numeroConta;
     float valor;
-
 
     printf("Digite o numero da conta para saque: ");
     scanf("%d", &numeroConta);
@@ -202,8 +204,6 @@ void sacar(Conta *contas, int totalContas)
         }
     }
 
-
-
     printf("Conta nao encontrada!\n");
 }
 
@@ -213,7 +213,6 @@ void imprimir(Conta *contas, int totalContas)
     int numeroConta;
     printf("Digite o numero da conta a ser impressa: ");
     scanf("%d", &numeroConta);
-
 
     for (int i = 0; i < totalContas; i++)
     {
@@ -227,8 +226,6 @@ void imprimir(Conta *contas, int totalContas)
         }
     }
 
-
-
     printf("Conta não encontrada!\n");
 }
 
@@ -241,7 +238,6 @@ void saldoGeral(Conta *contas, int totalContas)
     {
         saldoTotal += contas[i].saldo;
     }
-
 
     printf("Saldo total de todas as contas: %.2f\n", saldoTotal);
 }

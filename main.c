@@ -41,7 +41,6 @@ void inserir(Conta *contas, int *totalContas)
         }
     }
 
-    // Um erro nesta parte, ao entrar com um nome e sobrenome, ele entra em loop infinito. EX: "Juan" = Da certo; "Juan Lucas" = Loop infinito
     printf("Nome do cliente (Apenas primeiro nome): ");
     fgets(novaConta.cliente, sizeof(novaConta.cliente), stdin);
 
@@ -60,7 +59,7 @@ void inserir(Conta *contas, int *totalContas)
 void alterar(Conta *contas, int totalContas)
 {
 
-    int numeroConta, decisao;
+    int numeroConta;
 
     if (totalContas == 0)
     {
@@ -71,13 +70,18 @@ void alterar(Conta *contas, int totalContas)
     {
         printf("Digite o numero da conta a ser alterada: ");
         scanf("%d", &numeroConta);
+        fflush(stdin);
 
         for (int i = 0; i < totalContas; i++)
         {
             if (contas[i].numero == numeroConta)
             {
                 printf("Novo nome do cliente: ");
-                scanf(" %[^ \n]", contas[i].cliente);
+                fgets(contas[i].cliente, sizeof(contas[i].cliente), stdin);
+
+                printf("Conta especial (1 - Sim, 0 - Nao): ");
+                scanf("%d", &contas[i].especial);
+
                 printf("Dados da conta alterados com sucesso!\n");
                 return;
             }
@@ -90,6 +94,7 @@ void alterar(Conta *contas, int totalContas)
 void procurar(Conta *contas, int totalContas)
 {
     int numeroConta;
+
     printf("Digite o numero da conta a ser procurada: ");
     scanf("%d", &numeroConta);
 
